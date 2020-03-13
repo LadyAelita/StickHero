@@ -8,8 +8,8 @@ public class SoundScript : MonoBehaviour
 
     private Music music;
     public Button musicToggleButton;
-   // public Sprite musicOnSprite;
-   // public Sprite musicOffSprite;
+    public Sprite musicOnSprite;
+    public Sprite musicOffSprite;
 
 
     // Start is called before the first frame update
@@ -33,11 +33,14 @@ public class SoundScript : MonoBehaviour
             AudioListener.volume = 1;
             Debug.Log("Audio On");
 
+            musicToggleButton.GetComponent<Image>().sprite = musicOnSprite;
+
         }
         else
         {
             AudioListener.volume = 0;
             Debug.Log("Audio Off");
+            musicToggleButton.GetComponent<Image>().sprite = musicOffSprite;
         }
 
     }
