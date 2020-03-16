@@ -7,8 +7,10 @@ public class CameraControl : MonoBehaviour
     public AnimationControl animControl;
 
     private Camera cam;
-    private float cameraHalfWidth;
     private Vector3 cameraStartingLocation;
+
+    public float cameraHalfWidth { get; private set; }
+    public float cameraWidth { get; private set; }
 
     public float GetCameraRightEdge()
     {
@@ -24,6 +26,7 @@ public class CameraControl : MonoBehaviour
     {
         cam = GetComponent<Camera>();
         cameraHalfWidth = cam.orthographicSize * cam.aspect;
+        cameraWidth = 2 * cameraHalfWidth;
 
         // Store the starting location
         cameraStartingLocation = transform.position + new Vector3(cameraHalfWidth, 0.0f);
