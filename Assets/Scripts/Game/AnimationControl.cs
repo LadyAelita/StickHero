@@ -8,11 +8,15 @@ public class AnimationControl : MonoBehaviour
 
     private class _TransformAnimation
     {
+        public enum Property { Position, RotationEuler }
+
         private Transform transform;
         private Vector3 from;
         private Vector3 to;
         private float animTime;
         private float interpolant;
+
+        private Property property;
 
         public bool IsCompleted()
         {
@@ -24,19 +28,29 @@ public class AnimationControl : MonoBehaviour
             float deltaInterpolant = deltaTime / animTime;
             interpolant = Mathf.Min(1.0f, interpolant + deltaInterpolant);
 
-            transform.position = Vector3.Lerp(from, to, interpolant);
+            Vector3 resultVector = Vector3.Lerp(from, to, interpolant);
+
+            if (property == Property.Position)
+            {
+                transform.position = resultVector;
+            }
+            else if (property == Property.RotationEuler)
+            {
+                transform.eulerAngles = resultVector;
+            }
         }
 
-        private void Init(Transform transform, Vector3 from, Vector3 to, float animTime)
+        private void Init(Transform transform, Vector3 from, Vector3 to, float animTime, Property property)
         {
             this.transform = transform;
             this.from = from;
             this.to = to;
             this.animTime = animTime;
+            this.property = property;
         }
-        public _TransformAnimation(Transform transform, Vector3 from, Vector3 to, float animTime)
+        public _TransformAnimation(Transform transform, Vector3 from, Vector3 to, float animTime, Property property)
         {
-            Init(transform, from, to, animTime);
+            Init(transform, from, to, animTime, property);
         }
     }
 
@@ -44,12 +58,22 @@ public class AnimationControl : MonoBehaviour
 
     public void AnimateTransformPos(Transform transform, Vector3 from, Vector3 to, float animTime)
     {
-        _TransformAnimation anim = new _TransformAnimation(transform, from, to, animTime);
+        _TransformAnimation anim = new _TransformAnimation(transform, from, to, animTime, _TransformAnimation.Property.Position);
         transformAnimations.Add(anim);
     }
     public void AnimateTransformPos(Transform transform, Vector3 from, Vector3 to)
     {
         AnimateTransformPos(transform, from, to, defaultAnimationTime);
+    }
+
+    public void AnimateTransformEuler(Transform transform, Vector3 from, Vector3 to, float animTime)
+    {
+        _TransformAnimation anim = new _TransformAnimation(transform, from, to, animTime, _TransformAnimation.Property.RotationEuler);
+        transformAnimations.Add(anim);
+    }
+    public void AnimateTransformEuler(Transform transform, Vector3 from, Vector3 to)
+    {
+        AnimateTransformEuler(transform, from, to, defaultAnimationTime);
     }
 
     // Start is called before the first frame update
