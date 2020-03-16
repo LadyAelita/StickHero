@@ -49,7 +49,7 @@ public class AnimationControl : MonoBehaviour
             callback?.Invoke(transform);
         }
 
-        private void Init(Transform transform, Vector3 from, Vector3 to, float animTime, Property property, AnimationCallback callback=null)
+        private void Init(Transform transform, Vector3 from, Vector3 to, float animTime, Property property, AnimationCallback callback = null)
         {
             this.transform = transform;
             this.from = from;
@@ -66,24 +66,24 @@ public class AnimationControl : MonoBehaviour
 
     private List<_TransformAnimation> transformAnimations;  
 
-    public void AnimateTransformPos(Transform transform, Vector3 from, Vector3 to, float animTime)
+    public void AnimateTransformPos(Transform transform, Vector3 from, Vector3 to, AnimationCallback callback, float animTime)
     {
-        _TransformAnimation anim = new _TransformAnimation(transform, from, to, animTime, _TransformAnimation.Property.Position);
+        _TransformAnimation anim = new _TransformAnimation(transform, from, to, animTime, _TransformAnimation.Property.Position, callback);
         transformAnimations.Add(anim);
     }
-    public void AnimateTransformPos(Transform transform, Vector3 from, Vector3 to)
+    public void AnimateTransformPos(Transform transform, Vector3 from, Vector3 to, AnimationCallback callback = null)
     {
-        AnimateTransformPos(transform, from, to, defaultAnimationTime);
+        AnimateTransformPos(transform, from, to, callback, defaultAnimationTime);
     }
 
-    public void AnimateTransformEuler(Transform transform, Vector3 from, Vector3 to, float animTime)
+    public void AnimateTransformEuler(Transform transform, Vector3 from, Vector3 to, AnimationCallback callback, float animTime)
     {
-        _TransformAnimation anim = new _TransformAnimation(transform, from, to, animTime, _TransformAnimation.Property.RotationEuler);
+        _TransformAnimation anim = new _TransformAnimation(transform, from, to, animTime, _TransformAnimation.Property.RotationEuler, callback);
         transformAnimations.Add(anim);
     }
-    public void AnimateTransformEuler(Transform transform, Vector3 from, Vector3 to)
+    public void AnimateTransformEuler(Transform transform, Vector3 from, Vector3 to, AnimationCallback callback = null)
     {
-        AnimateTransformEuler(transform, from, to, defaultAnimationTime);
+        AnimateTransformEuler(transform, from, to, callback, defaultAnimationTime);
     }
 
     // Start is called before the first frame update
