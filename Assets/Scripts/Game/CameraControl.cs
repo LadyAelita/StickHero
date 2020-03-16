@@ -5,9 +5,12 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour
 {
     public AnimationControl animControl;
+    public GameObject playerCharacterObject;
 
     private Camera cam;
     private Vector3 cameraStartingLocation;
+
+    private float deltaXFromPlayer;
 
     public float cameraHalfWidth { get; private set; }
     public float cameraWidth { get; private set; }
@@ -22,6 +25,14 @@ public class CameraControl : MonoBehaviour
         transform.position = cameraStartingLocation;
     }
 
+    public void AnimateShiftToPlayer(AnimationControl.AnimationCallback callback=null)
+    {
+        float targetX = playerCharacterObject.transform.position.x + deltaXFromPlayer;
+        Vector3 targetPos = new Vector3(targetX, transform.position.y, transform.position.z);
+
+        animControl.AnimateTransformPos(transform, transform.position, targetPos, callback);
+    }
+
     void Awake()
     {
         cam = GetComponent<Camera>();
@@ -30,14 +41,14 @@ public class CameraControl : MonoBehaviour
 
         // Store the starting location
         cameraStartingLocation = transform.position + new Vector3(cameraHalfWidth, 0.0f);
-
         MoveCameraToStart();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        deltaXFromPlayer = transform.position.x - playerCharacterObject.transform.position.x;
+        Debug.Log(deltaXFromPlayer);
     }
 
     // Update is called once per frame

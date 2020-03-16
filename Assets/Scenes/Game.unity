@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 37348435}
   - component: {fileID: 37348434}
+  - component: {fileID: 37348436}
   m_Layer: 0
   m_Name: Script Holder
   m_TagString: Untagged
@@ -165,6 +166,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &37348436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37348433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226f8d9854cee3448a5174c85dca8d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainGen: {fileID: 1775368472}
+  player: {fileID: 1427540164}
+  camControl: {fileID: 1705471574}
 --- !u!1 &159718099
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,6 +857,7 @@ GameObject:
   - component: {fileID: 1427540159}
   - component: {fileID: 1427540162}
   - component: {fileID: 1427540163}
+  - component: {fileID: 1427540164}
   m_Layer: 0
   m_Name: Player Character
   m_TagString: Untagged
@@ -862,7 +879,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.32692307}
-  m_Size: {x: 0.44871795, y: 0.65}
+  m_Size: {x: 0.15, y: 0.65}
   m_Direction: 0
 --- !u!212 &1427540160
 SpriteRenderer:
@@ -968,6 +985,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1427540164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427540158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701c8102a6b75dc4eb1f63cacc4d7f96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingPlatformSprite: {fileID: 159718101}
+  terrainGen: {fileID: 1775368472}
+  walkingTime: 1
 --- !u!1 &1633983373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,6 +1274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animControl: {fileID: 37348434}
+  playerCharacterObject: {fileID: 1427540158}
 --- !u!1 &1775368470
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,9 +1326,9 @@ MonoBehaviour:
   centerMarkBlueprint: {fileID: 1266857345}
   stickBlueprint: {fileID: 1025860452}
   animControl: {fileID: 37348434}
-  minimalPlatformWidth: 0.2
+  minimalPlatformWidth: 0.3
   maximalPlatformWidth: 3
-  minimalPlatformToPlatformSpacing: 0.25
+  minimalPlatformToPlatformSpacing: 0.3
   minimalPlatformToRightEdgeSpacing: 0.25
   stickGrowthSpeed: 5
 --- !u!1 &1963076067

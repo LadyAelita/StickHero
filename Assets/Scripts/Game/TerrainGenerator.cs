@@ -73,7 +73,6 @@ public class TerrainGenerator : MonoBehaviour
     {
         stickGrowing = false;
         stickInAir = false;
-        lastStick = null;
     }
 
     public void StickFall()
@@ -112,6 +111,42 @@ public class TerrainGenerator : MonoBehaviour
 
         prevPlatform = lastPlatform;
         lastPlatform = platform;
+    }
+
+    public float GetLastPlatformEdge()
+    {
+        SpriteRenderer lastPlatformSprite = lastPlatform.GetComponent<SpriteRenderer>();
+        float lastPlatformWidth = lastPlatformSprite.bounds.size.x;
+
+        return lastPlatform.transform.position.x + lastPlatformWidth;
+    }
+
+    public float GetPrevPlatformEdge()
+    {
+        SpriteRenderer prevPlatformSprite = prevPlatform.GetComponent<SpriteRenderer>();
+        float prevPlatformWidth = prevPlatformSprite.bounds.size.x;
+
+        return prevPlatform.transform.position.x + prevPlatformWidth;
+    }
+
+    public float GetLastStickLength()
+    {
+        return lastStick.transform.localScale.y;
+    }
+
+    public float GetLastPlatformX()
+    {
+        return lastPlatform.transform.position.x;
+    }
+
+    public void RemoveLastStickCollision()
+    {
+        lastStick.GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    public void RemoveLastPlatformCollision()
+    {
+        lastPlatform.GetComponent<BoxCollider2D>().enabled = false;
     }
 
     // Start is called before the first frame update
