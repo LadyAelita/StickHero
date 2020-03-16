@@ -113,7 +113,6 @@ public class TerrainGenerator : MonoBehaviour
         float width = Random.Range(minWidth, maxWidth);
         float localX = Random.Range(minX, maxX - width); // Assuming pivot on left edge
 
-        Debug.LogWarningFormat("MinX: {0}, MaxX: {1}, MinWidth: {2}, MaxWidth: {3}, width: {4}", minX, maxX, minWidth, maxWidth, width);
         GameObject platform = InstantiateNewPlatform(camControl.GetCameraRightEdge(), width);
 
         Vector3 targetPos = transform.TransformPoint(new Vector3(localX, 0.0f));

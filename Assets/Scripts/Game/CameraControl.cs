@@ -49,7 +49,6 @@ public class CameraControl : MonoBehaviour
     void Start()
     {
         deltaXFromPlayer = transform.position.x - playerCharacterObject.transform.position.x;
-        Debug.Log(deltaXFromPlayer);
     }
 
     // Update is called once per frame
