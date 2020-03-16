@@ -6,6 +6,8 @@ public class AnimationControl : MonoBehaviour
 {
     public float defaultAnimationTime;
 
+    public delegate void AnimationCallback(Transform transform);
+
     private class _TransformAnimation
     {
         public enum Property { Position, RotationEuler }
@@ -15,6 +17,8 @@ public class AnimationControl : MonoBehaviour
         private Vector3 to;
         private float animTime;
         private float interpolant;
+
+        private AnimationCallback callback;
 
         private Property property;
 
@@ -40,21 +44,27 @@ public class AnimationControl : MonoBehaviour
             }
         }
 
-        private void Init(Transform transform, Vector3 from, Vector3 to, float animTime, Property property)
+        public void HandleCompletion()
+        {
+            callback?.Invoke(transform);
+        }
+
+        private void Init(Transform transform, Vector3 from, Vector3 to, float animTime, Property property, AnimationCallback callback=null)
         {
             this.transform = transform;
             this.from = from;
             this.to = to;
             this.animTime = animTime;
             this.property = property;
+            this.callback = callback;
         }
-        public _TransformAnimation(Transform transform, Vector3 from, Vector3 to, float animTime, Property property)
+        public _TransformAnimation(Transform transform, Vector3 from, Vector3 to, float animTime, Property property, AnimationCallback callback = null)
         {
-            Init(transform, from, to, animTime, property);
+            Init(transform, from, to, animTime, property, callback);
         }
     }
 
-    private List<_TransformAnimation> transformAnimations;
+    private List<_TransformAnimation> transformAnimations;  
 
     public void AnimateTransformPos(Transform transform, Vector3 from, Vector3 to, float animTime)
     {
@@ -91,6 +101,7 @@ public class AnimationControl : MonoBehaviour
             anim.ExecuteStep(Time.deltaTime);
             if (anim.IsCompleted())
             {
+                anim.HandleCompletion();
                 transformAnimations.RemoveAt(i);
                 i -= 1;
             }
