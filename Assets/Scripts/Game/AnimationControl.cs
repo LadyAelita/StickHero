@@ -53,7 +53,7 @@ public class AnimationControl : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         transformAnimations = new List<_TransformAnimation>();
     }
