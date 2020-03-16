@@ -113,9 +113,7 @@ public class TerrainGenerator : MonoBehaviour
         lastPlatform = startingPlatform;
         camControl = mainCamera.GetComponent<CameraControl>();
 
-        //SpawnAndAnimateNextPlatform();
-
-        SpawnStick();
+        SpawnAndAnimateNextPlatform();
     }
 
     // Update is called once per frame
