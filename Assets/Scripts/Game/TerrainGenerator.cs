@@ -17,6 +17,7 @@ public class TerrainGenerator : MonoBehaviour
     public float stickGrowthSpeed;
 
     // Private fields
+    private GameObject prevPlatform;
     private GameObject lastPlatform;
     private GameObject lastStick;
     private CameraControl camControl;
@@ -39,12 +40,12 @@ public class TerrainGenerator : MonoBehaviour
 
     private GameObject InstantiateNewStick()
     {
-        SpriteRenderer lastPlatformSprite = lastPlatform.GetComponent<SpriteRenderer>();
-        float lastPlatformWidth = lastPlatformSprite.bounds.size.x;
-        Vector3 lastPlatformLocalEdge = lastPlatform.transform.localPosition + new Vector3(lastPlatformWidth, 0.0f);
+        SpriteRenderer prevPlatformSprite = prevPlatform.GetComponent<SpriteRenderer>();
+        float prevPlatformWidth = prevPlatformSprite.bounds.size.x;
+        Vector3 prevPlatformLocalEdge = prevPlatform.transform.localPosition + new Vector3(prevPlatformWidth, 0.0f);
 
         GameObject stick = Instantiate(stickBlueprint, transform);
-        stick.transform.localPosition = lastPlatformLocalEdge;
+        stick.transform.localPosition = prevPlatformLocalEdge;
 
         return stick;
     }
@@ -109,6 +110,7 @@ public class TerrainGenerator : MonoBehaviour
         Vector3 targetPos = transform.TransformPoint(new Vector3(localX, 0.0f));
         animControl.AnimateTransformPos(platform.transform, platform.transform.position, targetPos);
 
+        prevPlatform = lastPlatform;
         lastPlatform = platform;
     }
 
@@ -116,6 +118,7 @@ public class TerrainGenerator : MonoBehaviour
     void Start()
     {
         lastPlatform = startingPlatform;
+        prevPlatform = startingPlatform;
         camControl = mainCamera.GetComponent<CameraControl>();
 
         SpawnAndAnimateNextPlatform();
