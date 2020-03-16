@@ -181,6 +181,7 @@ MonoBehaviour:
   terrainGen: {fileID: 1775368472}
   player: {fileID: 1427540164}
   camControl: {fileID: 1705471574}
+  scoreCounter: {fileID: 1974139919}
 --- !u!1 &159718099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1328,7 +1329,7 @@ MonoBehaviour:
   animControl: {fileID: 37348434}
   minimalPlatformWidth: 0.3
   maximalPlatformWidth: 3
-  minimalPlatformToPlatformSpacing: 0.3
+  minimalPlatformToPlatformSpacing: 0.5
   minimalPlatformToRightEdgeSpacing: 0.25
   stickGrowthSpeed: 5
 --- !u!1 &1963076067
@@ -1374,6 +1375,7 @@ GameObject:
   - component: {fileID: 1974139918}
   - component: {fileID: 1974139917}
   - component: {fileID: 1974139916}
+  - component: {fileID: 1974139919}
   m_Layer: 5
   m_Name: High Score Indicator
   m_TagString: Untagged
@@ -1462,3 +1464,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1974139914}
   m_CullTransparentMesh: 0
+--- !u!114 &1974139919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974139914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bccc4cd580056114c972c7c2a086eed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 1633983375}

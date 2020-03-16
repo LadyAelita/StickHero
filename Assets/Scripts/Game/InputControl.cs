@@ -8,6 +8,7 @@ public class InputControl : MonoBehaviour
     public TerrainGenerator terrainGen;
     public PlayerCharacter player;
     public CameraControl camControl;
+    public ScoreCounter scoreCounter;
 
     // Private fields
     private bool lastTouchStatus = false;
@@ -64,6 +65,11 @@ public class InputControl : MonoBehaviour
         stage = Stage.Waiting;
     }
 
+    private void HandleScoreIncrement()
+    {
+        scoreCounter.score += 1;
+    }
+
     private void HandleStopWalking()
     {
         if (player.IsDead())
@@ -74,6 +80,7 @@ public class InputControl : MonoBehaviour
         else
         {
             stage = Stage.Shifting;
+            HandleScoreIncrement();
             terrainGen.SpawnAndAnimateNextPlatform();
             camControl.AnimateShiftToPlayer(HandleShiftingEnd);
         }
