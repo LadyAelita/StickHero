@@ -58,6 +58,15 @@ public class TerrainGenerator : MonoBehaviour
         Vector3 platformLocalScale = platform.transform.localScale;
         platform.transform.localScale = new Vector3(scaleX, platformLocalScale.y, platformLocalScale.z);
 
+        GameObject centerMark = Instantiate(centerMarkBlueprint, platform.transform);
+        centerMark.transform.localPosition = new Vector3(0.5f, 0.0f);
+
+        Vector3 centerMarkScale = centerMark.transform.localScale;
+        centerMarkScale.x /= scaleX;
+        centerMarkScale.y /= platformLocalScale.y;
+        centerMarkScale.z /= platformLocalScale.z;
+        centerMark.transform.localScale = centerMarkScale;
+
         return platform;
     }
 
