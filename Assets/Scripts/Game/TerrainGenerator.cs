@@ -84,6 +84,11 @@ public class TerrainGenerator : MonoBehaviour
         animControl.AnimateTransformEuler(lastStick.transform, lastStick.transform.eulerAngles, newEuler, _StickHasFallenCallback);
     }
 
+    public bool IsStickGrowing()
+    {
+        return stickGrowing;
+    }
+
     public bool IsStickInAir()
     {
         return stickInAir;
