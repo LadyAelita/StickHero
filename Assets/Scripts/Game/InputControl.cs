@@ -81,8 +81,9 @@ public class InputControl : MonoBehaviour
         {
             stage = Stage.Shifting;
             HandleScoreIncrement();
-            terrainGen.SpawnAndAnimateNextPlatform();
-            camControl.AnimateShiftToPlayer(HandleShiftingEnd);
+            float newCameraX = camControl.AnimateShiftToPlayer(HandleShiftingEnd);
+            float newCameraRightEdge = newCameraX + camControl.cameraHalfWidth;
+            terrainGen.SpawnAndAnimateNextPlatform(newCameraRightEdge);
         }
     }
 

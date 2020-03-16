@@ -25,12 +25,13 @@ public class CameraControl : MonoBehaviour
         transform.position = cameraStartingLocation;
     }
 
-    public void AnimateShiftToPlayer(AnimationControl.AnimationCallback callback=null)
+    public float AnimateShiftToPlayer(AnimationControl.AnimationCallback callback=null)
     {
         float targetX = playerCharacterObject.transform.position.x + deltaXFromPlayer;
         Vector3 targetPos = new Vector3(targetX, transform.position.y, transform.position.z);
 
         animControl.AnimateTransformPos(transform, transform.position, targetPos, callback);
+        return targetX;
     }
 
     void Awake()

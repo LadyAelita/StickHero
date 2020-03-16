@@ -33,9 +33,9 @@ public class TerrainGenerator : MonoBehaviour
         return lastPlatform.transform.localPosition.x + lastPlatformWidth + minimalPlatformToPlatformSpacing;
     }
 
-    private float GetMaximalLocalX()
+    private float GetMaximalLocalX(float rightEdge)
     {
-        return camControl.GetCameraRightEdge() - minimalPlatformToRightEdgeSpacing;
+        return rightEdge - minimalPlatformToRightEdgeSpacing;
     }
 
     private GameObject InstantiateNewStick()
@@ -103,16 +103,17 @@ public class TerrainGenerator : MonoBehaviour
         return stickInAir;
     }
 
-    public void SpawnAndAnimateNextPlatform()
+    public void SpawnAndAnimateNextPlatform(float rightEdge)
     {
         float minX = GetMinimalLocalX();
-        float maxX = GetMaximalLocalX();
+        float maxX = GetMaximalLocalX(rightEdge);
         float minWidth = minimalPlatformWidth;
         float maxWidth = Mathf.Min(maxX - minX, maximalPlatformWidth);
 
         float width = Random.Range(minWidth, maxWidth);
         float localX = Random.Range(minX, maxX - width); // Assuming pivot on left edge
 
+        Debug.LogWarningFormat("MinX: {0}, MaxX: {1}, MinWidth: {2}, MaxWidth: {3}, width: {4}", minX, maxX, minWidth, maxWidth, width);
         GameObject platform = InstantiateNewPlatform(camControl.GetCameraRightEdge(), width);
 
         Vector3 targetPos = transform.TransformPoint(new Vector3(localX, 0.0f));
@@ -165,7 +166,7 @@ public class TerrainGenerator : MonoBehaviour
         prevPlatform = startingPlatform;
         camControl = mainCamera.GetComponent<CameraControl>();
 
-        SpawnAndAnimateNextPlatform();
+        SpawnAndAnimateNextPlatform(camControl.GetCameraRightEdge());
     }
 
     // Update is called once per frame
