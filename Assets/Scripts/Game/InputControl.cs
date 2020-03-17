@@ -61,6 +61,11 @@ public class InputControl : MonoBehaviour
     {
         stage = Stage.Walking;
         player.Walk();
+
+        if (terrainGen.IsStickEndOnLastCenterMark())
+        {
+            scoreCounter.score += 1;
+        }
     }
 
     private void HandleShiftingEnd(Transform camTransform)

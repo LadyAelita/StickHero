@@ -22,6 +22,8 @@ public class TerrainGenerator : MonoBehaviour
     private GameObject lastStick;
     private CameraControl camControl;
 
+    private float centerMarkHalfWidth;
+
     private bool stickGrowing = false;
     private bool stickInAir = false;
 
@@ -158,6 +160,20 @@ public class TerrainGenerator : MonoBehaviour
         lastPlatform.GetComponent<BoxCollider2D>().enabled = false;
     }
 
+    public bool IsStickEndOnLastCenterMark()
+    {
+        SpriteRenderer lastPlatformSprite = lastPlatform.GetComponent<SpriteRenderer>();
+        float lastPlatformHalfWidth = lastPlatformSprite.bounds.size.x / 2.0f;
+        float lastPlatformCenter = GetLastPlatformX() + lastPlatformHalfWidth;
+
+        float leftBound = lastPlatformCenter - centerMarkHalfWidth;
+        float rightBound = lastPlatformCenter + centerMarkHalfWidth;
+
+        float stickEndX = lastStick.transform.position.x + GetLastStickLength();
+
+        return stickEndX >= leftBound && stickEndX <= rightBound;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -166,6 +182,8 @@ public class TerrainGenerator : MonoBehaviour
         camControl = mainCamera.GetComponent<CameraControl>();
 
         SpawnAndAnimateNextPlatform(camControl.GetCameraRightEdge());
+
+        centerMarkHalfWidth = centerMarkBlueprint.GetComponent<SpriteRenderer>().bounds.size.x / 2.0f;
     }
 
     // Update is called once per frame
