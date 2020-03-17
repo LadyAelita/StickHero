@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InputControl : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class InputControl : MonoBehaviour
     public PlayerCharacter player;
     public CameraControl camControl;
     public ScoreCounter scoreCounter;
+    public GameOverHandler gameOverHandler;
 
     // Private fields
     private bool lastTouchStatus = false;
@@ -20,7 +22,8 @@ public class InputControl : MonoBehaviour
         StickFalling = 3,
         Walking = 4,
         Dying = 5,
-        Shifting = 6
+        Shifting = 6,
+        GameOver = 7
     }
     private Stage stage = Stage.Waiting;
 
@@ -75,7 +78,6 @@ public class InputControl : MonoBehaviour
         if (player.IsDead())
         {
             stage = Stage.Dying;
-            HandleGameOver();
         }
         else
         {
@@ -89,7 +91,19 @@ public class InputControl : MonoBehaviour
 
     private void HandleGameOver()
     {
+        gameOverHandler.UpdateScores(scoreCounter.score);
+        gameOverHandler.DisplayOverlay();
+        stage = Stage.GameOver;
+    }
 
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void OpenMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     // Start is called before the first frame update
@@ -122,12 +136,18 @@ public class InputControl : MonoBehaviour
                 HandleStickFall();
             }
         }
-
-        if (stage == Stage.Walking)
+        else if (stage == Stage.Walking)
         {
             if (player.IsWalking() == false)
             {
                 HandleStopWalking();
+            }
+        }
+        else if (stage == Stage.Dying)
+        {
+            if (player.transform.position.y < -camControl.GetCameraHalfHeight())
+            {
+                HandleGameOver();
             }
         }
     }
