@@ -15,6 +15,11 @@ public class CameraControl : MonoBehaviour
     public float cameraHalfWidth { get; private set; }
     public float cameraWidth { get; private set; }
 
+    public float GetCameraHalfHeight()
+    {
+        return cam.orthographicSize;
+    }
+
     public float GetCameraRightEdge()
     {
         return cam.ViewportToWorldPoint(new Vector3(1.0f, 0.0f)).x;
